@@ -22,12 +22,12 @@ public class Quiz {
     private final String[] options;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private final int answer;
+    private final int[] answer;
 
-    public Quiz(String title, String text, String[] answers, int answer) {
+    public Quiz(String title, String text, String[] options, int[] answer) {
         this.title = title;
         this.text = text;
-        this.options = answers;
+        this.options = options;
         this.answer = answer;
     }
 
@@ -51,7 +51,7 @@ public class Quiz {
         return options;
     }
 
-    public int getAnswer() {
+    public int[] getAnswer() {
         return answer;
     }
 }
