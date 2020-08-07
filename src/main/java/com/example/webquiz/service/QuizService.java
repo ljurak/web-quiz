@@ -8,7 +8,6 @@ import com.example.webquiz.repository.QuizRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.List;
 
 @Service
 public class QuizService {
@@ -20,20 +19,20 @@ public class QuizService {
     }
 
     public Quiz getQuiz(int id) {
-        return quizRepo.getQuiz(id)
+        return quizRepo.findById(id)
                 .orElseThrow(() -> new QuizNotFoundException("Quiz not found for id: " + id));
     }
 
-    public List<Quiz> getAllQuizzes() {
-        return quizRepo.getAllQuizzes();
+    public Iterable<Quiz> getAllQuizzes() {
+        return quizRepo.findAll();
     }
 
     public Quiz createQuiz(Quiz quiz) {
-        return quizRepo.createQuiz(quiz);
+        return quizRepo.save(quiz);
     }
 
     public Result solveQuiz(int quizId, Answer answer) {
-        Quiz quiz = quizRepo.getQuiz(quizId)
+        Quiz quiz = quizRepo.findById(quizId)
                 .orElseThrow(() -> new QuizNotFoundException("Quiz not found for id: " + quizId));
 
         int[] quizAnswer = quiz.getAnswer();
