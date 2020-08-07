@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -30,7 +29,7 @@ public class QuizController {
     }
 
     @GetMapping("/quizzes")
-    public List<Quiz> getAllQuizzes() {
+    public Iterable<Quiz> getAllQuizzes() {
         return quizService.getAllQuizzes();
     }
 
