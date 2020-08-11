@@ -7,6 +7,7 @@ import com.example.webquiz.model.Result;
 import com.example.webquiz.model.User;
 import com.example.webquiz.repository.QuizRepo;
 import com.example.webquiz.repository.UserRepo;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +39,18 @@ public class QuizService {
         User user = userRepo.findUserByEmail(author).get();
         quiz.setAuthor(user);
         return quizRepo.save(quiz);
+    }
+
+    @Transactional
+    public void deleteQuiz(int quizId, String author) {
+        Quiz quiz = quizRepo.findById(quizId)
+                .orElseThrow(() -> new QuizNotFoundException("Quiz not found for id: " + quizId));
+
+        if (!quiz.getAuthor().getEmail().equals(author)) {
+            throw new AccessDeniedException("Forbidden");
+        }
+
+        quizRepo.delete(quiz);
     }
 
     public Result solveQuiz(int quizId, Answer answer) {
