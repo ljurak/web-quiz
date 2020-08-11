@@ -4,6 +4,8 @@ import com.example.webquiz.model.Answer;
 import com.example.webquiz.model.Quiz;
 import com.example.webquiz.model.Result;
 import com.example.webquiz.service.QuizService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,8 +36,9 @@ public class QuizController {
     }
 
     @PostMapping("/quizzes")
-    public Quiz createQuiz(@RequestBody @Valid Quiz quiz) {
-        return quizService.createQuiz(quiz);
+    public Quiz createQuiz(@RequestBody @Valid Quiz quiz, Authentication authentication) {
+        String author = ((UserDetails) authentication.getPrincipal()).getUsername();
+        return quizService.createQuiz(quiz, author);
     }
 
     @PostMapping(path = "/quizzes/{id}/solve")
