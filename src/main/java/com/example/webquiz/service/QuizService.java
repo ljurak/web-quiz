@@ -4,8 +4,11 @@ import com.example.webquiz.exception.QuizNotFoundException;
 import com.example.webquiz.model.Answer;
 import com.example.webquiz.model.Quiz;
 import com.example.webquiz.model.Result;
+import com.example.webquiz.model.User;
 import com.example.webquiz.repository.QuizRepo;
+import com.example.webquiz.repository.UserRepo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
@@ -14,8 +17,11 @@ public class QuizService {
 
     private final QuizRepo quizRepo;
 
-    public QuizService(QuizRepo quizRepo) {
+    private final UserRepo userRepo;
+
+    public QuizService(QuizRepo quizRepo, UserRepo userRepo) {
         this.quizRepo = quizRepo;
+        this.userRepo = userRepo;
     }
 
     public Quiz getQuiz(int id) {
@@ -27,7 +33,10 @@ public class QuizService {
         return quizRepo.findAll();
     }
 
-    public Quiz createQuiz(Quiz quiz) {
+    @Transactional
+    public Quiz createQuiz(Quiz quiz, String author) {
+        User user = userRepo.findUserByEmail(author).get();
+        quiz.setAuthor(user);
         return quizRepo.save(quiz);
     }
 
