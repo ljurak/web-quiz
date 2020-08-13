@@ -2,6 +2,7 @@ package com.example.webquiz.controller;
 
 import com.example.webquiz.model.Answer;
 import com.example.webquiz.model.Quiz;
+import com.example.webquiz.model.QuizCompletionDto;
 import com.example.webquiz.model.Result;
 import com.example.webquiz.service.QuizService;
 import org.springframework.http.HttpStatus;
@@ -47,8 +48,15 @@ public class QuizController {
     }
 
     @PostMapping("/quizzes/{id}/solve")
-    public Result solveQuiz(@PathVariable int id, @RequestBody @Valid Answer answer) {
-        return quizService.solveQuiz(id, answer);
+    public Result solveQuiz(@PathVariable int id, @RequestBody @Valid Answer answer, Authentication authentication) {
+        String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+        return quizService.solveQuiz(id, answer, username);
+    }
+
+    @GetMapping("/quizzes/completed")
+    public Iterable<QuizCompletionDto> getQuizCompletions(@RequestParam("page") @Min(0) int page, Authentication authentication) {
+        String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+        return quizService.getQuizCompletions(page, username);
     }
 
     @DeleteMapping("/quizzes/{id}")
