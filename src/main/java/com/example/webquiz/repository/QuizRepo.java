@@ -1,10 +1,10 @@
 package com.example.webquiz.repository;
 
 import com.example.webquiz.model.Quiz;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface QuizRepo extends CrudRepository<Quiz, Integer> {
+public interface QuizRepo extends JpaRepository<Quiz, Integer> {
 
 }
