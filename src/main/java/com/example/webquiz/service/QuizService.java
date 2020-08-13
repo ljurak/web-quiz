@@ -3,8 +3,11 @@ package com.example.webquiz.service;
 import com.example.webquiz.exception.QuizNotFoundException;
 import com.example.webquiz.model.Answer;
 import com.example.webquiz.model.Quiz;
+import com.example.webquiz.model.QuizCompletion;
+import com.example.webquiz.model.QuizCompletionDto;
 import com.example.webquiz.model.Result;
 import com.example.webquiz.model.User;
+import com.example.webquiz.repository.QuizCompletionRepo;
 import com.example.webquiz.repository.QuizRepo;
 import com.example.webquiz.repository.UserRepo;
 import org.springframework.data.domain.PageRequest;
@@ -23,9 +26,12 @@ public class QuizService {
 
     private final UserRepo userRepo;
 
-    public QuizService(QuizRepo quizRepo, UserRepo userRepo) {
+    private final QuizCompletionRepo quizCompletionRepo;
+
+    public QuizService(QuizRepo quizRepo, UserRepo userRepo, QuizCompletionRepo quizCompletionRepo) {
         this.quizRepo = quizRepo;
         this.userRepo = userRepo;
+        this.quizCompletionRepo = quizCompletionRepo;
     }
 
     public Quiz getQuiz(int id) {
@@ -35,6 +41,10 @@ public class QuizService {
 
     public Iterable<Quiz> getAllQuizzes(int page) {
         return quizRepo.findAll(PageRequest.of(page, PAGE_SIZE));
+    }
+
+    public Iterable<QuizCompletionDto> getQuizCompletions(int page, String username) {
+        return quizCompletionRepo.findQuizCompletionByUser(username, PageRequest.of(page, PAGE_SIZE));
     }
 
     @Transactional
@@ -56,15 +66,19 @@ public class QuizService {
         quizRepo.delete(quiz);
     }
 
-    public Result solveQuiz(int quizId, Answer answer) {
+    @Transactional
+    public Result solveQuiz(int quizId, Answer answer, String username) {
+        User user = userRepo.findUserByEmail(username).get();
         Quiz quiz = quizRepo.findById(quizId)
                 .orElseThrow(() -> new QuizNotFoundException("Quiz not found for id: " + quizId));
 
         int[] quizAnswer = quiz.getAnswer();
         int[] userAnswer = answer.getAnswer();
 
+        boolean quizCompleted = false;
+
         if (quizAnswer == null && userAnswer.length == 0) {
-            return new Result(true, "Congratulations, you're right!");
+            quizCompleted = true;
         }
 
         if (quizAnswer != null) {
@@ -72,8 +86,14 @@ public class QuizService {
             Arrays.sort(userAnswer);
 
             if (Arrays.equals(quizAnswer, userAnswer)) {
-                return new Result(true, "Congratulations, you're right!");
+                quizCompleted = true;
             }
+        }
+
+        if (quizCompleted) {
+            QuizCompletion quizCompletion = new QuizCompletion(user, quiz);
+            quizCompletionRepo.save(quizCompletion);
+            return new Result(true, "Congratulations, you're right!");
         }
 
         return new Result(false, "Wrong answer! Please, try again.");
