@@ -7,6 +7,7 @@ import com.example.webquiz.model.Result;
 import com.example.webquiz.model.User;
 import com.example.webquiz.repository.QuizRepo;
 import com.example.webquiz.repository.UserRepo;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,8 @@ import java.util.Arrays;
 
 @Service
 public class QuizService {
+
+    private static final int PAGE_SIZE = 10;
 
     private final QuizRepo quizRepo;
 
@@ -30,8 +33,8 @@ public class QuizService {
                 .orElseThrow(() -> new QuizNotFoundException("Quiz not found for id: " + id));
     }
 
-    public Iterable<Quiz> getAllQuizzes() {
-        return quizRepo.findAll();
+    public Iterable<Quiz> getAllQuizzes(int page) {
+        return quizRepo.findAll(PageRequest.of(page, PAGE_SIZE));
     }
 
     @Transactional
