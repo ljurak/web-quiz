@@ -1,4 +1,6 @@
-package com.example.webquiz.model;
+package com.example.webquiz.model.entity;
+
+import com.example.webquiz.model.Role;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -56,5 +58,9 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Role getRole() {
+        return role;
     }
 }

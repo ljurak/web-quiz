@@ -1,6 +1,6 @@
 package com.example.webquiz.repository;
 
-import com.example.webquiz.model.QuizCompletion;
+import com.example.webquiz.model.entity.QuizCompletion;
 import com.example.webquiz.model.QuizCompletionDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

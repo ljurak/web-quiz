@@ -2,11 +2,11 @@ package com.example.webquiz.service;
 
 import com.example.webquiz.exception.QuizNotFoundException;
 import com.example.webquiz.model.Answer;
-import com.example.webquiz.model.Quiz;
-import com.example.webquiz.model.QuizCompletion;
+import com.example.webquiz.model.entity.Quiz;
+import com.example.webquiz.model.entity.QuizCompletion;
 import com.example.webquiz.model.QuizCompletionDto;
 import com.example.webquiz.model.Result;
-import com.example.webquiz.model.User;
+import com.example.webquiz.model.entity.User;
 import com.example.webquiz.model.dto.NewQuizDto;
 import com.example.webquiz.repository.QuizCompletionRepo;
 import com.example.webquiz.repository.QuizRepo;

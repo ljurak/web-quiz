@@ -1,4 +1,4 @@
-package com.example.webquiz.model;
+package com.example.webquiz.model.entity;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

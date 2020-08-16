@@ -1,7 +1,7 @@
 package com.example.webquiz.controller;
 
 import com.example.webquiz.model.Answer;
-import com.example.webquiz.model.Quiz;
+import com.example.webquiz.model.entity.Quiz;
 import com.example.webquiz.model.QuizCompletionDto;
 import com.example.webquiz.model.Result;
 import com.example.webquiz.model.dto.NewQuizDto;

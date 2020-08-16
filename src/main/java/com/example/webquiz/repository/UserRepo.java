@@ -1,6 +1,6 @@
 package com.example.webquiz.repository;
 
-import com.example.webquiz.model.User;
+import com.example.webquiz.model.entity.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

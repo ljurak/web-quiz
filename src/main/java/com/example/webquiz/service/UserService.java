@@ -3,7 +3,7 @@ package com.example.webquiz.service;
 import com.example.webquiz.exception.UserNotAvailableException;
 import com.example.webquiz.model.dto.NewUserDto;
 import com.example.webquiz.model.Role;
-import com.example.webquiz.model.User;
+import com.example.webquiz.model.entity.User;
 import com.example.webquiz.repository.UserRepo;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.example.webquiz.model;
+package com.example.webquiz.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
