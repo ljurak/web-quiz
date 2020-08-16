@@ -50,9 +50,10 @@ public class Quiz {
     public Quiz() {
     }
 
-    public Quiz(String title, String text, List<String> options, int[] answer) {
+    public Quiz(String title, String text, User author, List<String> options, int[] answer) {
         this.title = title;
         this.text = text;
+        this.author = author;
         this.options = options;
         this.answer = answer;
     }

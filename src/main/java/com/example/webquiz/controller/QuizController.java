@@ -4,6 +4,7 @@ import com.example.webquiz.model.Answer;
 import com.example.webquiz.model.Quiz;
 import com.example.webquiz.model.QuizCompletionDto;
 import com.example.webquiz.model.Result;
+import com.example.webquiz.model.dto.NewQuizDto;
 import com.example.webquiz.service.QuizService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -42,9 +43,9 @@ public class QuizController {
     }
 
     @PostMapping("/quizzes")
-    public Quiz createQuiz(@RequestBody @Valid Quiz quiz, Authentication authentication) {
+    public Quiz createQuiz(@RequestBody @Valid NewQuizDto newQuiz, Authentication authentication) {
         String author = ((UserDetails) authentication.getPrincipal()).getUsername();
-        return quizService.createQuiz(quiz, author);
+        return quizService.createQuiz(newQuiz, author);
     }
 
     @PostMapping("/quizzes/{id}/solve")

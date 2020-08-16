@@ -7,6 +7,7 @@ import com.example.webquiz.model.QuizCompletion;
 import com.example.webquiz.model.QuizCompletionDto;
 import com.example.webquiz.model.Result;
 import com.example.webquiz.model.User;
+import com.example.webquiz.model.dto.NewQuizDto;
 import com.example.webquiz.repository.QuizCompletionRepo;
 import com.example.webquiz.repository.QuizRepo;
 import com.example.webquiz.repository.UserRepo;
@@ -48,9 +49,9 @@ public class QuizService {
     }
 
     @Transactional
-    public Quiz createQuiz(Quiz quiz, String author) {
+    public Quiz createQuiz(NewQuizDto newQuiz, String author) {
         User user = userRepo.findUserByEmail(author).get();
-        quiz.setAuthor(user);
+        Quiz quiz = new Quiz(newQuiz.getTitle(), newQuiz.getText(), user, newQuiz.getOptions(), newQuiz.getAnswer());
         return quizRepo.save(quiz);
     }
 
