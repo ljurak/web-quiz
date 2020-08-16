@@ -1,6 +1,6 @@
 package com.example.webquiz.controller;
 
-import com.example.webquiz.model.ApiError;
+import com.example.webquiz.model.dto.ApiError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

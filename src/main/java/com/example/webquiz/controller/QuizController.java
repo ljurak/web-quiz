@@ -1,8 +1,8 @@
 package com.example.webquiz.controller;
 
-import com.example.webquiz.model.Answer;
-import com.example.webquiz.model.QuizCompletionDto;
-import com.example.webquiz.model.Result;
+import com.example.webquiz.model.dto.Answer;
+import com.example.webquiz.model.dto.QuizCompletionDto;
+import com.example.webquiz.model.dto.Result;
 import com.example.webquiz.model.dto.NewQuizDto;
 import com.example.webquiz.model.dto.QuizDto;
 import com.example.webquiz.service.QuizService;

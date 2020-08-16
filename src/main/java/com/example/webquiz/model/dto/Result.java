@@ -1,4 +1,4 @@
-package com.example.webquiz.model;
+package com.example.webquiz.model.dto;
 
 public class Result {
 
