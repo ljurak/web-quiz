@@ -1,10 +1,10 @@
 package com.example.webquiz.controller;
 
 import com.example.webquiz.model.Answer;
-import com.example.webquiz.model.entity.Quiz;
 import com.example.webquiz.model.QuizCompletionDto;
 import com.example.webquiz.model.Result;
 import com.example.webquiz.model.dto.NewQuizDto;
+import com.example.webquiz.model.dto.QuizDto;
 import com.example.webquiz.service.QuizService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -33,17 +33,17 @@ public class QuizController {
     }
 
     @GetMapping("/quizzes/{id}")
-    public Quiz getQuiz(@PathVariable int id) {
+    public QuizDto getQuiz(@PathVariable int id) {
         return quizService.getQuiz(id);
     }
 
     @GetMapping("/quizzes")
-    public Iterable<Quiz> getAllQuizzes(@RequestParam("page") @Min(0) int page) {
+    public Iterable<QuizDto> getAllQuizzes(@RequestParam("page") @Min(0) int page) {
         return quizService.getAllQuizzes(page);
     }
 
     @PostMapping("/quizzes")
-    public Quiz createQuiz(@RequestBody @Valid NewQuizDto newQuiz, Authentication authentication) {
+    public QuizDto createQuiz(@RequestBody @Valid NewQuizDto newQuiz, Authentication authentication) {
         String author = ((UserDetails) authentication.getPrincipal()).getUsername();
         return quizService.createQuiz(newQuiz, author);
     }
