@@ -1,6 +1,6 @@
 package com.example.webquiz.controller;
 
-import com.example.webquiz.model.NewUser;
+import com.example.webquiz.model.dto.NewUserDto;
 import com.example.webquiz.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +20,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public void registerUser(@RequestBody @Valid NewUser newUser) {
+    public void registerUser(@RequestBody @Valid NewUserDto newUser) {
         userService.registerUser(newUser);
     }
 }

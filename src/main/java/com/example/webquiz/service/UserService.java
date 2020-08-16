@@ -1,7 +1,7 @@
 package com.example.webquiz.service;
 
 import com.example.webquiz.exception.UserNotAvailableException;
-import com.example.webquiz.model.NewUser;
+import com.example.webquiz.model.dto.NewUserDto;
 import com.example.webquiz.model.Role;
 import com.example.webquiz.model.User;
 import com.example.webquiz.repository.UserRepo;
@@ -22,7 +22,7 @@ public class UserService {
     }
 
     @Transactional
-    public void registerUser(NewUser newUser) {
+    public void registerUser(NewUserDto newUser) {
         if (userRepo.findUserByEmail(newUser.getEmail()).isPresent()) {
             throw new UserNotAvailableException("Email is not available: " + newUser.getEmail());
         }
